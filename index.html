@@ -1,38 +1,56 @@
 <!DOCTYPE html>
-  <html>
-    <head>
-      <script src="https://cdn.jsdelivr.net/npm/three@0.160/build/three.min.js"></script>
-      <script>
-        const scene = new THREE.Scene();
+<html>
 
-        const geometry = new THREE.BoxGeometry(1,1,1);
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160/build/three.min.js"></script>
+</head>
 
-        const material = new THREE.MeshBasicMaterial({
-          color: 0x00ff00
-        });
+<body>
 
-        const cube = new THREE.Mesh(geometry, material);
-        
-        scene.add(cube);
+<script>
 
-        
-        
-        const camera = new THREE.PerspectiveCamera(
-          75, // FOV
-          window.innerWidth / window.innerHeight,
-          0.1, // near clip
-          1000 // far clip
-         );
+const scene = new THREE.Scene();
 
-        const renderer = new THREE.WebGLRenderer();
-        renderer.setSize(window.innerWidth, window.innerHeight);
+const camera = new THREE.PerspectiveCamera(
+  75,
+  window.innerWidth / window.innerHeight,
+  0.1,
+  1000
+);
 
-        document.body.appendChild(renderer.domElement);
+const renderer = new THREE.WebGLRenderer();
 
-        renderer.render(scene, camera);
-      </script>
-    </head>
-    <body>
-      
-    </body>
-  </html>
+renderer.setSize(window.innerWidth, window.innerHeight);
+
+document.body.appendChild(renderer.domElement);
+
+// cube
+const geometry = new THREE.BoxGeometry(1,1,1);
+
+const material = new THREE.MeshBasicMaterial({
+  color: 0x00ff00
+});
+
+const cube = new THREE.Mesh(geometry, material);
+
+scene.add(cube);
+
+camera.position.z = 5;
+
+// game loop
+function animate() {
+
+  requestAnimationFrame(animate);
+
+  cube.rotation.y += 0.01;
+  cube.rotation.x += 0.01;
+
+  renderer.render(scene, camera);
+}
+
+animate();
+
+</script>
+
+</body>
+</html>
